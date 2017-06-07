@@ -3,3 +3,11 @@
   float: right;
   min-height: 400px;
 }
+
+textarea {
+  position: absolute;
+  bottom: 10px;
+  float: left;
+  left: 40%;
+  width: 25%;
+}

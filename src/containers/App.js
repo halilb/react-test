@@ -1,17 +1,29 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import { Chat, Header, HistoryList } from '../components';
+import * as ChatActions from '../actions';
 import './App.css';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <Header />
-        <HistoryList />
-        <Chat />
-      </div>
-    );
-  }
-}
+const App = ({ history, actions }) => {
+  // this will change when multiple chats are implemented
+  const currentChat = history;
 
-export default App;
+  return (
+    <div className="App">
+      <Header />
+      <HistoryList />
+      <Chat messages={currentChat} onMessageSend={actions.sendMessage} />
+    </div>
+  );
+};
+
+const mapStateToProps = state => ({
+  history: state.history,
+});
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(ChatActions, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
